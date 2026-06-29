@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello World</title>
+  <!-- A tiny touch of style to make "Hello World" look pleasant -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #f0f4fa;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      padding: 1rem;
+    }
+    .card {
+      background: white;
+      max-width: 600px;
+      width: 100%;
+      padding: 3rem 2rem;
+      border-radius: 2rem;
+      box-shadow: 0 20px 40px -12px rgba(0, 20, 30, 0.25);
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+    .card:hover {
+      transform: scale(1.01);
+    }
+    h1 {
+      font-size: 4.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #0b2b5c, #1b5a8b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.25rem;
+      word-break: break-word;
+    }
+    .sub {
+      font-size: 1.1rem;
+      color: #2c3e50;
+      opacity: 0.7;
+      border-top: 2px solid #e9edf4;
+      padding-top: 1.2rem;
+      margin-top: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+    }
+    .emoji {
+      display: inline-block;
+      font-size: 2rem;
+      margin-right: 0.2rem;
+    }
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 3.2rem;
+      }
+      .card {
+        padding: 2rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <!-- Hello World message with a small wave emoji for extra friendliness -->
+    <h1>
+      <span class="emoji">👋</span> Hello World
+    </h1>
+    <p class="sub">
+      <span style="display: inline-block; margin-right: 6px;">✨</span> 
+      Welcome to your first HTML page 
+      <span style="display: inline-block; margin-left: 6px;">🚀</span>
+    </p>
+    <!-- Optional: small decorative line and extra message -->
+    <div style="margin-top: 1.8rem; font-size: 0.9rem; color: #4a5e77; opacity: 0.6; border-top: 1px dashed #d0d9e6; padding-top: 1.2rem;">
+      <span>🌍</span> made with <span style="color: #d45a6b;">❤</span> 
+    </div>
+  </main>
+</body>
+</html>
