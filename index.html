@@ -1,89 +1,901 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello World</title>
-  <!-- A tiny touch of style to make "Hello World" look pleasant -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bakala Express — Karachi's Fastest Grocery Delivery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --ink: #111111;
+      --ink-mid: #1f2937;
+      --ink-soft: #4b5563;
+      --cream: #ffffff;
+      --stone: #f8fafc;
+      --green: #12a13b;
+      --green-light: #16b845;
+      --gold: #f97316;
+      --gold-dim: #ffedd5;
+      --white: #ffffff;
+      --border: rgba(17, 24, 39, 0.08);
+      --border-strong: rgba(17, 24, 39, 0.15);
     }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      background: #f0f4fa;
-      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── TICKER ── */
+    .ticker-wrap {
+      background: var(--green);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 9px 0;
+    }
+    .ticker-track {
+      display: inline-flex;
+      gap: 0;
+      animation: tickerScroll 28s linear infinite;
+    }
+    .ticker-track span {
+      color: #ffffff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .03em;
+      padding: 0 36px;
+    }
+    .ticker-track span::before {
+      content: '·';
+      margin-right: 36px;
+      color: var(--gold);
+      font-size: 1rem;
+    }
+    @keyframes tickerScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      line-height: 1;
+    }
+    .brand-name span.express-word {
+      color: var(--ink);
+      position: relative;
+      font-style: normal;
+    }
+    .brand-name span.express-word::after {
+      content: '';
+      position: absolute;
+      left: -2px;
+      bottom: -4px;
+      width: 108%;
+      height: 6px;
+      background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 100 15' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M2 8C30 9 60 7 80 4C85 3 92 1.5 91 5C90 8 84 9 82 7C80 5 83 2 87 1.5' stroke='%2312a13b' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--ink-mid);
+      background: var(--white);
+    }
+    .nav-badge i { color: var(--green); }
+    .nav-btn {
+      padding: 8px 18px;
+      background: var(--ink);
+      color: var(--white);
+      border-radius: 6px;
+      font-size: .84rem;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .nav-btn:hover { background: var(--green); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+      padding: 80px 40px 90px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      min-height: 88vh;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-left { max-width: 560px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 13px;
+      border-radius: 4px;
+      background: rgba(249,115,22,.12);
+      border: 1px solid rgba(249,115,22,.28);
+      color: var(--gold);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .eyebrow i { font-size: .75rem; }
+    .hero-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.8rem, 5vw, 4.6rem);
+      line-height: .95;
+      letter-spacing: -.05em;
+      color: var(--ink);
+      margin-bottom: 24px;
+      font-weight: 800;
+    }
+    .hero-title .accent {
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(17,24,39,.35);
+    }
+    .hero-title .green-word { color: var(--green); }
+    .hero-sub {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--ink-soft);
+      max-width: 46ch;
+      margin-bottom: 36px;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 13px 22px;
+      background: var(--gold);
+      color: var(--white);
+      border-radius: 6px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .9rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 8px 28px rgba(249,115,22,.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(249,115,22,.45); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 13px 22px;
+      background: transparent;
+      color: var(--ink-mid);
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .btn-ghost:hover { border-color: var(--ink); color: var(--ink); background: rgba(0,0,0,0.03); }
+    .hero-metrics {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+    }
+    .metric {
+      flex: 1;
+      padding-right: 24px;
+      border-right: 1px solid var(--border);
+      margin-right: 24px;
+    }
+    .metric:last-child { border-right: none; margin-right: 0; }
+    .metric-value {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -.04em;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .metric-value span { color: var(--gold); }
+    .metric-label {
+      font-size: .8rem;
+      color: var(--ink-soft);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* ── APP MOCKUP / HERO RIGHT ── */
+    .hero-right {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-      padding: 1rem;
     }
-    .card {
-      background: white;
-      max-width: 600px;
-      width: 100%;
-      padding: 3rem 2rem;
-      border-radius: 2rem;
-      box-shadow: 0 20px 40px -12px rgba(0, 20, 30, 0.25);
-      text-align: center;
-      transition: transform 0.2s ease;
+    .app-frame {
+      width: 300px;
+      background: #1c1c1a;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 28px;
+      padding: 20px;
+      box-shadow: 0 40px 100px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.05);
+      position: relative;
     }
-    .card:hover {
-      transform: scale(1.01);
+    .app-frame::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(18,161,59,.35), transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
     }
-    h1 {
-      font-size: 4.5rem;
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .app-logo-sm {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .app-logo-sm .dot { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
+    .app-logo-sm span { color: #fff; font-family: 'Plus Jakarta Sans',sans-serif; font-weight: 700; font-size: .85rem; }
+    .app-time { color: rgba(255,255,255,.35); font-size: .75rem; }
+    .app-search {
+      background: rgba(255,255,255,.06);
+      border-radius: 8px;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      color: rgba(255,255,255,.28);
+      font-size: .82rem;
+      border: 1px solid rgba(255,255,255,.07);
+    }
+    .app-search i { font-size: .8rem; }
+    .category-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .cat-chip {
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: .72rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #0b2b5c, #1b5a8b);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 0.25rem;
-      word-break: break-word;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.55);
+      background: rgba(255,255,255,.04);
     }
-    .sub {
+    .cat-chip.active {
+      background: var(--green);
+      color: #fff;
+      border-color: var(--green);
+    }
+    .app-items { display: grid; gap: 10px; }
+    .app-item {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: background .2s;
+    }
+    .item-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
       font-size: 1.1rem;
-      color: #2c3e50;
-      opacity: 0.7;
-      border-top: 2px solid #e9edf4;
-      padding-top: 1.2rem;
-      margin-top: 0.8rem;
-      font-weight: 400;
-      letter-spacing: 0.3px;
+      flex-shrink: 0;
     }
-    .emoji {
+    .item-icon.green { background: rgba(18,161,59,.25); }
+    .item-icon.gold { background: rgba(249,115,22,.20); }
+    .item-icon.red { background: rgba(180,60,50,.22); }
+    .item-info { flex: 1; }
+    .item-name { color: rgba(255,255,255,.85); font-size: .82rem; font-weight: 600; margin-bottom: 2px; }
+    .item-store { color: rgba(255,255,255,.32); font-size: .72rem; }
+    .item-price { color: var(--gold); font-size: .85rem; font-weight: 700; font-family: 'Plus Jakarta Sans',sans-serif; }
+    .app-eta {
+      margin-top: 14px;
+      background: rgba(18,161,59,.15);
+      border: 1px solid rgba(18,161,59,.3);
+      border-radius: 10px;
+      padding: 10px 13px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .app-eta i { color: var(--green-light); font-size: .9rem; }
+    .eta-text { font-size: .78rem; color: rgba(255,255,255,.6); }
+    .eta-text strong { color: var(--green-light); }
+
+    /* ── STRIP ── */
+    .strip {
+      background: var(--stone);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .strip-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--ink-mid);
+      font-size: .9rem;
+      font-weight: 600;
+    }
+    .strip-item i { color: var(--green); font-size: 1rem; }
+
+    /* ── FEATURES ── */
+    .section { padding: 80px 40px; }
+    .section-label {
       display: inline-block;
-      font-size: 2rem;
-      margin-right: 0.2rem;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 14px;
     }
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 3.2rem;
-      }
-      .card {
-        padding: 2rem 1.2rem;
-      }
+    .section-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1.05;
+      color: var(--ink);
+      max-width: 36ch;
+      margin-bottom: 48px;
+    }
+    .section-title em {
+      font-style: normal;
+      color: var(--green);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .feature {
+      background: var(--white);
+      padding: 32px 28px;
+      transition: background .2s;
+    }
+    .feature:hover { background: #f0fdf4; }
+    .feature-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: block;
+    }
+    .feature-icon {
+      width: 44px; height: 44px;
+      background: #e6f4ea;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: var(--green);
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+    .feature h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .feature p {
+      font-size: .88rem;
+      line-height: 1.7;
+      color: var(--ink-soft);
+    }
+
+    /* ── AREAS ── */
+    .areas-section {
+      background: var(--stone);
+      padding: 80px 40px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .areas-section .section-label { color: var(--gold); }
+    .areas-section .section-title { color: var(--ink); max-width: none; margin-bottom: 36px; }
+    .areas-section .section-title em { color: var(--green); }
+    .area-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .area-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 16px;
+      text-align: center;
+      transition: background .2s, border-color .2s;
+      cursor: default;
+    }
+    .area-card:hover {
+      background: var(--stone);
+      border-color: var(--green);
+    }
+    .area-card .area-emoji { font-size: 1.5rem; margin-bottom: 8px; display: block; }
+    .area-card span {
+      color: var(--ink-mid);
+      font-size: .85rem;
+      font-weight: 600;
+    }
+
+    /* ── CATEGORIES ── */
+    .cat-section { padding: 80px 40px; background: var(--stone); }
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-top: 36px;
+    }
+    .cat-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 16px;
+      text-align: center;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+    }
+    .cat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(17,24,39,.06);
+      border-color: rgba(18,161,59,.3);
+    }
+    .cat-emoji { font-size: 2rem; display: block; margin-bottom: 10px; }
+    .cat-label {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .cat-note { font-size: .75rem; color: var(--ink-soft); margin-top: 4px; }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: var(--green);
+      padding: 72px 40px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 40px;
+    }
+    .cta-band h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      color: var(--white);
+      line-height: 1.1;
+      max-width: 38ch;
+    }
+    .cta-band h2 span { color: var(--gold-dim); }
+    .cta-band-sub {
+      color: rgba(255,255,255,.6);
+      font-size: .9rem;
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+    .cta-band-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 14px 24px;
+      background: var(--white);
+      color: var(--green);
+      border-radius: 6px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .9rem;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform .2s;
+    }
+    .btn-white:hover { transform: translateY(-2px); }
+    .btn-outline-w {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 14px 24px;
+      background: transparent;
+      color: rgba(255,255,255,.8);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 6px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .9rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-outline-w:hover { border-color: #fff; color: #fff; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--stone);
+      padding: 36px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 18px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-brand {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+    }
+    .footer-brand em { color: var(--ink-soft); opacity: 0.6; font-style: normal; font-size: .8rem; margin-left: 6px; }
+    .footer-social { display: flex; gap: 14px; }
+    .footer-social a {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: var(--ink-mid);
+      font-size: .85rem;
+      text-decoration: none;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .footer-social a:hover { border-color: var(--green); color: var(--green); background: rgba(0,0,0,0.02); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; padding: 52px 24px 60px; gap: 48px; min-height: auto; }
+      .hero-left { max-width: 100%; }
+      .app-frame { width: 260px; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .cat-grid { grid-template-columns: repeat(3, 1fr); }
+      .cta-band { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .nav { padding: 0 20px; }
+      .nav-badge { display: none; }
+      .section, .areas-section, .cat-section { padding: 56px 20px; }
+      .hero { padding: 40px 20px 52px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+      .strip { gap: 22px; padding: 16px 20px; justify-content: flex-start; }
+      .cta-band { padding: 52px 20px; }
+      .footer { padding: 28px 20px; flex-direction: column; align-items: flex-start; }
+      .hero-metrics { flex-direction: column; gap: 18px; }
+      .metric { border-right: none; margin-right: 0; border-bottom: 1px solid var(--border); padding-bottom: 18px; padding-right: 0; }
+      .metric:last-child { border-bottom: none; padding-bottom: 0; }
     }
   </style>
 </head>
 <body>
-  <main class="card">
-    <!-- Hello World message with a small wave emoji for extra friendliness -->
-    <h1>
-      <span class="emoji">👋</span> Hello World
-    </h1>
-    <p class="sub">
-      <span style="display: inline-block; margin-right: 6px;">✨</span> 
-      Welcome to your first HTML page 
-      <span style="display: inline-block; margin-left: 6px;">🚀</span>
-    </p>
-    <!-- Optional: small decorative line and extra message -->
-    <div style="margin-top: 1.8rem; font-size: 0.9rem; color: #4a5e77; opacity: 0.6; border-top: 1px dashed #d0d9e6; padding-top: 1.2rem;">
-      <span>🌍</span> made with <span style="color: #d45a6b;">❤</span> 
+
+  <!-- TICKER -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Launching in Baldia Town</span>
+      <span>30–45 min delivery</span>
+      <span>Fresh milk daily</span>
+      <span>Trusted local vendors</span>
+      <span>Zero hidden charges</span>
+      <span>Bakery · Vegetables · Meat · Grocery</span>
+      <span>Coming soon to Karachi</span>
+      <span>Launching in Baldia Town</span>
+      <span>30–45 min delivery</span>
+      <span>Fresh milk daily</span>
+      <span>Trusted local vendors</span>
+      <span>Zero hidden charges</span>
+      <span>Bakery · Vegetables · Meat · Grocery</span>
+      <span>Coming soon to Karachi</span>
     </div>
-  </main>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="brand">
+      <img src="logo.png" alt="Bakala Express Logo" style="height: 48px; width: auto; display: block;" />
+    </div>
+    <div class="nav-right">
+      <div class="nav-badge">
+        <i class="fa-solid fa-location-dot"></i>
+        Karachi · Baldia Town
+      </div>
+      <a href="#notify" class="nav-btn"><i class="fa-regular fa-bell"></i> Get notified</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="eyebrow"><i class="fa-solid fa-bolt"></i> Early access — Karachi launch</div>
+      <h1 class="hero-title">
+        Your bakala,<br>
+        <span class="green-word">on demand.</span>
+      </h1>
+      <p class="hero-sub">
+        Groceries, milk, bread, vegetables, and meat — ordered in seconds, delivered from trusted neighborhood shops. Built for how Karachi actually works.
+      </p>
+      <div class="hero-cta">
+        <a href="#notify" class="btn-primary" id="notify"><i class="fa-regular fa-bell"></i> Notify me at launch</a>
+        <a href="#shopkeepers" class="btn-ghost"><i class="fa-solid fa-store"></i> Join as a shopkeeper</a>
+      </div>
+      <div class="hero-metrics">
+        <div class="metric">
+          <strong class="metric-value">120<span>+</span></strong>
+          <span class="metric-label">Trusted local<br>vendors</span>
+        </div>
+        <div class="metric">
+          <strong class="metric-value">30<span>–45m</span></strong>
+          <span class="metric-label">Delivery time<br>target</span>
+        </div>
+        <div class="metric">
+          <strong class="metric-value">₀</strong>
+          <span class="metric-label">Hidden charges<br>ever</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="app-frame">
+        <div class="app-header">
+          <div class="app-logo-sm">
+            <img src="logo.png" alt="Bakala Express Logo" style="height: 28px; width: auto; border-radius: 4px;" />
+          </div>
+          <div class="app-time">Baldia Town ↓</div>
+        </div>
+        <div class="app-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          Search milk, bread, eggs…
+        </div>
+        <div class="category-row">
+          <div class="cat-chip active">All</div>
+          <div class="cat-chip">Dairy</div>
+          <div class="cat-chip">Bakery</div>
+          <div class="cat-chip">Meat</div>
+          <div class="cat-chip">Sabzi</div>
+        </div>
+        <div class="app-items">
+          <div class="app-item">
+            <div class="item-icon green">🥛</div>
+            <div class="item-info">
+              <div class="item-name">Fresh Cow Milk</div>
+              <div class="item-store">Bhai Arif Dairy · 200m</div>
+            </div>
+            <div class="item-price">₨140/L</div>
+          </div>
+          <div class="app-item">
+            <div class="item-icon gold">🍞</div>
+            <div class="item-info">
+              <div class="item-name">Double Roti</div>
+              <div class="item-store">Karimi Bakery · 350m</div>
+            </div>
+            <div class="item-price">₨65</div>
+          </div>
+          <div class="app-item">
+            <div class="item-icon red">🍖</div>
+            <div class="item-info">
+              <div class="item-name">Beef Keema — 500g</div>
+              <div class="item-store">Malik Meat Shop · 180m</div>
+            </div>
+            <div class="item-price">₨620</div>
+          </div>
+        </div>
+        <div class="app-eta">
+          <i class="fa-solid fa-circle-dot"></i>
+          <div class="eta-text">Estimated delivery: <strong>28–35 min</strong> to your door</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <div class="strip">
+    <div class="strip-item"><i class="fa-solid fa-truck-fast"></i> Fast neighborhood delivery</div>
+    <div class="strip-item"><i class="fa-solid fa-shield-heart"></i> Verified local vendors only</div>
+    <div class="strip-item"><i class="fa-solid fa-tags"></i> Market-rate prices, always</div>
+    <div class="strip-item"><i class="fa-solid fa-mobile-screen"></i> Designed for mobile-first</div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="section">
+    <span class="section-label">How it works</span>
+    <h2 class="section-title">Built specifically for<br><em>Karachi's local commerce</em></h2>
+    <div class="features-grid">
+      <div class="feature">
+        <span class="feature-num">01</span>
+        <div class="feature-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+        <h4>Hyper-local matching</h4>
+        <p>Orders route to the closest verified shop in your mohalla — not a central warehouse miles away.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-num">02</span>
+        <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+        <h4>30–45 min delivery</h4>
+        <p>Designed for nearby orders. When your shop is 200 metres away, delivery should take minutes, not hours.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-num">03</span>
+        <div class="feature-icon"><i class="fa-solid fa-store"></i></div>
+        <h4>Shopkeeper tools</h4>
+        <p>Simple inventory management and order alerts designed for small business owners, not tech experts.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-num">04</span>
+        <div class="feature-icon"><i class="fa-solid fa-tags"></i></div>
+        <h4>No price markup</h4>
+        <p>Customers pay market rate. Revenue comes from delivery fees — transparent, no surprises at checkout.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-num">05</span>
+        <div class="feature-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+        <h4>Works on any phone</h4>
+        <p>Lightweight, fast, and built first for low-bandwidth mobile networks common in residential areas.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-num">06</span>
+        <div class="feature-icon"><i class="fa-solid fa-handshake-simple"></i></div>
+        <h4>Community trust</h4>
+        <p>Every vendor is a real neighborhood shop. Ratings are earned, not bought. Familiarity is a feature.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="cat-section">
+    <span class="section-label">What we deliver</span>
+    <h2 class="section-title" style="max-width:none">Everything your home needs, daily.</h2>
+    <div class="cat-grid">
+      <div class="cat-card">
+        <span class="cat-emoji">🥛</span>
+        <div class="cat-label">Dairy & Milk</div>
+        <div class="cat-note">Fresh daily deliveries</div>
+      </div>
+      <div class="cat-card">
+        <span class="cat-emoji">🍞</span>
+        <div class="cat-label">Bakery</div>
+        <div class="cat-note">Roti, bread & biscuits</div>
+      </div>
+      <div class="cat-card">
+        <span class="cat-emoji">🥦</span>
+        <div class="cat-label">Vegetables</div>
+        <div class="cat-note">From local sabzi wallahs</div>
+      </div>
+      <div class="cat-card">
+        <span class="cat-emoji">🍖</span>
+        <div class="cat-label">Meat & Poultry</div>
+        <div class="cat-note">Halal, fresh cut</div>
+      </div>
+      <div class="cat-card">
+        <span class="cat-emoji">🛒</span>
+        <div class="cat-label">General Store</div>
+        <div class="cat-note">Household essentials</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AREAS -->
+  <section class="areas-section">
+    <span class="section-label">Coverage</span>
+    <h2 class="section-title">Pilot launch areas<br>in <em>Baldia Town</em></h2>
+    <div class="area-grid">
+      <div class="area-card"><span class="area-emoji">🏘️</span><span>Baldia Town</span></div>
+      <div class="area-card"><span class="area-emoji">🥛</span><span>Milk & Dairy Hubs</span></div>
+      <div class="area-card"><span class="area-emoji">🥦</span><span>Vegetable Markets</span></div>
+      <div class="area-card"><span class="area-emoji">🍖</span><span>Meat Shops</span></div>
+      <div class="area-card"><span class="area-emoji">🛒</span><span>General Stores</span></div>
+      <div class="area-card"><span class="area-emoji">🍞</span><span>Tandoors & Bakeries</span></div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band" id="shopkeepers">
+    <div>
+      <h2>Be among the <span>first</span> to experience it.</h2>
+      <p class="cta-band-sub">Whether you're a customer or a shop owner — join the waitlist and get early access when we go live in Baldia Town.</p>
+    </div>
+    <div class="cta-band-actions">
+      <a href="#" class="btn-white"><i class="fa-regular fa-bell"></i> Customer waitlist</a>
+      <a href="#" class="btn-outline-w"><i class="fa-solid fa-store"></i> Partner as a shop</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-brand">
+      Bakala Express <em>© 2026 · Built for Karachi</em>
+    </div>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+    </div>
+  </footer>
+
 </body>
 </html>
